@@ -2,6 +2,7 @@ const game = document.getElementById("game");
 const scoreBoard = document.getElementById("score");
 const timeBoard = document.getElementById("time");
 const resetBtn = document.getElementById("reset-btn");
+const restartBtn = document.getElementById("restart-btn");
 
 let score = 0;
 let seconds = 0;
@@ -152,6 +153,17 @@ resetBtn.addEventListener("click", () => {
 });
 const resetBoardBtn = document.getElementById("reset-board-btn");
 resetBoardBtn.addEventListener("click", resetBoard);
+restartBtn.addEventListener("click", () => {
+  // 모달 숨기기
+  const modal = document.getElementById("game-over-modal");
+  modal.style.display = "none";
+
+  // 게임 초기화
+  initGame();
+
+  // 타이머 재시작
+  startTimer();
+});
 
 // 보드 초기화 함수
 function resetBoard() {
@@ -212,20 +224,16 @@ function initGame() {
 function startTimer() {
   const timerBar = document.getElementById("timer-bar");
   const MAX_TIME = 300; // 5분
-  seconds = 0;
+
+  if (timer) clearInterval(timer);
+
+  const startTime = Date.now();
 
   timer = setInterval(() => {
-    // 지역변수 const 제거
-    seconds++;
-    const remaining = MAX_TIME - seconds;
-    const percent = (remaining / MAX_TIME) * 100;
-    timerBar.style.width = percent + "%";
+    const elapsed = Math.floor((Date.now() - startTime) / 1000); // 경과 시간
+    const remaining = MAX_TIME - elapsed;
 
-    const min = String(Math.floor(remaining / 60)).padStart(2, "0");
-    const sec = String(remaining % 60).padStart(2, "0");
-    timeBoard.innerText = `시간: ${min}:${sec}`;
-
-    if (seconds >= MAX_TIME) {
+    if (remaining < 0) {
       clearInterval(timer);
       isDragging = false;
 
@@ -233,7 +241,22 @@ function startTimer() {
       game.removeEventListener("mouseover", dragSelect);
       document.removeEventListener("mouseup", endDrag);
 
-      alert(`시간 종료! 최종 점수: ${score}`);
+      timerBar.style.width = 0;
+      timeBoard.innerText = `시간: 00:00`;
+
+      const modal = document.getElementById("game-over-modal");
+      const finalScore = document.getElementById("final-score");
+      finalScore.innerText = `최종 점수: ${score}`;
+      modal.style.display = "flex";
+
+      return;
     }
-  }, 1000);
+
+    // 타이머 UI 업데이트
+    const percent = (remaining / MAX_TIME) * 100;
+    timerBar.style.width = percent + "%";
+    const min = String(Math.floor(remaining / 60)).padStart(2, "0");
+    const sec = String(remaining % 60).padStart(2, "0");
+    timeBoard.innerText = `시간: ${min}:${sec}`;
+  }, 250); // 250ms마다 체크, 더 부드럽게
 }

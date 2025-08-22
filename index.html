@@ -30,8 +30,16 @@
 
       <!-- 게임 컨트롤 -->
       <div id="game-controls">
-        <button id="reset-board-btn">보드 리셋</button>
-        <button id="reset-btn">다시 시작</button>
+        <button id="reset-board-btn" class="reset-btn">보드 리셋</button>
+        <button id="reset-btn" class="reset-btn">다시 시작</button>
+      </div>
+    </div>
+
+    <!-- 게임 종료 모달 -->
+    <div id="game-over-modal" class="modal">
+      <div class="modal-content">
+        <h2 id="final-score">최종 점수: 0</h2>
+        <button id="restart-btn" class="reset-btn">다시 시작</button>
       </div>
     </div>
 

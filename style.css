@@ -139,8 +139,7 @@ body {
   margin-top: 15px;
 }
 
-#reset-btn,
-#reset-board-btn {
+.reset-btn {
   padding: 8px 20px;
   font-size: 18px;
   border-radius: 12px;
@@ -152,7 +151,34 @@ body {
   transition: background 0.3s;
 }
 
-#reset-btn:hover,
-#reset-board-btn:hover {
+.reset-btn:hover {
   background: #ffc700;
+}
+
+/* 모달 전체 */
+.modal {
+  display: none; /* 초기 숨김 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  /* flex 적용 */
+  display: flex; /* JS에서 display:flex로 바꾸지 않아도 됨 */
+}
+
+/* 모달 내용 */
+.modal-content {
+  background-color: #1e1e1e; /* 다크모드용 진한 배경 */
+  color: #fff; /* 글자색 흰색 */
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 300px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
