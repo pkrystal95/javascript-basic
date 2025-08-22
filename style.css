@@ -1,0 +1,71 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #222;
+  color: white;
+  font-family: sans-serif;
+}
+#game {
+  display: grid;
+  grid-template-columns: repeat(17, 40px); /* 가로 17칸 */
+  grid-template-rows: repeat(10, 40px); /* 세로 10칸 */
+  gap: 8px;
+}
+.cell {
+  width: 40px;
+  height: 40px;
+  background: rgb(255, 107, 107);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+}
+.selected {
+  border: 3px solid yellow;
+}
+#score {
+  margin-top: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5) rotate(20deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.cell.explode {
+  animation: explode 0.5s forwards;
+}
+
+#timer-container {
+  width: 680px; /* 게임판 가로 길이 17*40px + gap 고려 */
+  height: 20px;
+  background: #555;
+  border-radius: 10px;
+  margin: 10px auto;
+  overflow: hidden;
+}
+
+#timer-bar {
+  width: 100%;
+  height: 100%;
+  background: lime;
+  transition: width 0.5s linear; /* 부드럽게 줄어들게 */
+}
