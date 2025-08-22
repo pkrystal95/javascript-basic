@@ -167,9 +167,6 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-
-  /* flex 적용 */
-  display: flex; /* JS에서 display:flex로 바꾸지 않아도 됨 */
 }
 
 /* 모달 내용 */
